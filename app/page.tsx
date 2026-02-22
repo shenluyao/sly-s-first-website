@@ -360,18 +360,21 @@ export default function DailyTodoPage() {
   const handleDeleteNote = async (noteId: string) => {
     if (!confirm("确定要删除这条笔记吗？删除后无法恢复。")) return;
 
+    const prevNotes = notes;
+    setNotes((prev) => prev.filter((n) => n.id !== noteId));
+    setNoteError(null);
+
     try {
       const res = await fetch(`/api/notes/${noteId}`, { method: "DELETE" });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         setNoteError(data?.error ?? "删除失败，请稍后重试。");
-        return;
+        setNotes(prevNotes);
       }
-      setNotes((prev) => prev.filter((n) => n.id !== noteId));
-      setNoteError(null);
     } catch (err) {
       console.error(err);
       setNoteError("删除失败，请稍后重试。");
+      setNotes(prevNotes);
     }
   };
 
@@ -657,8 +660,9 @@ export default function DailyTodoPage() {
                   <ReactMarkdown
                     components={{
                       img: ({ src, alt }) => {
+                        const srcStr = typeof src === "string" ? src : "";
                         // 检查是否是空字符串或本地相对路径
-                        if (!src || src === "" || (!src.startsWith("http") && !src.startsWith("/"))) {
+                        if (!srcStr || srcStr === "" || (!srcStr.startsWith("http") && !srcStr.startsWith("/"))) {
                           return (
                             <span className="inline-block rounded border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-2 py-1 text-xs text-neutral-600 dark:text-neutral-400">
                               <span className="font-medium">[本地图片无法显示]</span>
@@ -667,7 +671,7 @@ export default function DailyTodoPage() {
                           );
                         }
                         // 有效的图片 URL，正常渲染
-                        return <img src={src} alt={alt || ""} className="rounded-lg" />;
+                        return <img src={srcStr} alt={alt || ""} className="rounded-lg" />;
                       },
                     }}
                   >
