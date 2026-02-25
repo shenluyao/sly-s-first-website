@@ -1,0 +1,9 @@
+\textbf{借助 Vibe Coding 搭建个人网站} \hfill 2026.01
+\titlebreak
+项目描述：为了管理个人学习笔记，记录每日学习任务，并对访问人数进行统计，基于 \textbf{TypeScript} 与 \textbf{Next.js} 框架搭建了一个全栈个人网站，部署于 \textbf{Vercel} 平台。
+\begin{itemize}[nosep, topsep=\intraProjectListTopSep]
+    \item \textbf{待办清单（To-Do List）}：运用 \textbf{TypeScript} 语言及 \textbf{Next.js} App Router 框架，结合 \textbf{Supabase}（PostgreSQL）数据库，实现了每日待办事项的\textbf{增、删、改、查}功能，支持任务完成状态切换与完成进度百分比的\textbf{实时统计}，并采用\textbf{乐观更新}策略提升用户交互体验。
+    \item \textbf{笔记管理}：基于 \textbf{Supabase Storage} 实现了学习笔记的\textbf{文件上传}（支持 PDF 与 Markdown 格式）、\textbf{在线预览}与\textbf{删除}功能；利用 \textbf{React Markdown} 在模态框内渲染 Markdown 笔记，PDF 文件支持新标签页打开阅读。
+    \item \textbf{访问统计}：基于 \textbf{Redis}（Vercel KV）实现了页面\textbf{访问计数器}，通过 \textbf{Cookie} 机制进行访客去重（7 天窗口期），并利用 \texttt{useRef} 防止 React Strict Mode 下的重复计数，确保统计数据的准确性。
+    \item \textbf{技术栈}：前端采用 \textbf{Tailwind CSS} 构建\textbf{响应式}界面，后端使用 Next.js \textbf{Server Actions} 处理业务逻辑，数据层使用 \textbf{Supabase} 与 \textbf{Redis}，整体部署于 \textbf{Vercel} 云平台。
+\end{itemize}
