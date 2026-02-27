@@ -17,8 +17,9 @@ function safeCookieName(slug: string): string {
  */
 export async function getAndIncrementViewCount(slug: string): Promise<number> {
   const redisUrl = process.env.REDIS_URL;
-  const hasKv =
-    process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN;
+  const hasKv = !!(
+    process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN
+  );
   if (!redisUrl && !hasKv) return 0;
 
   try {
