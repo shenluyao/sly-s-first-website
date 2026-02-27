@@ -28,7 +28,7 @@ export async function getAndIncrementViewCount(slug: string): Promise<number> {
     const viewed = cookieStore.get(cookieName);
 
     if (viewed?.value === "1") {
-      const count = await readCount(key, redisUrl, hasKv);
+      const count = await readCount(key, redisUrl, Boolean(hasKv));
       return count;
     }
 
