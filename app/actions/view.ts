@@ -32,7 +32,7 @@ export async function getAndIncrementViewCount(slug: string): Promise<number> {
       return count;
     }
 
-    const count = await incrementCount(key, redisUrl, hasKv);
+    const count = await incrementCount(key, redisUrl, Boolean(hasKv));
     cookieStore.set(cookieName, "1", {
       maxAge: COOKIE_MAX_AGE,
       path: "/",
